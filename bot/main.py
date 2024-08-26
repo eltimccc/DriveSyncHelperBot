@@ -1,13 +1,20 @@
 import logging
-from telegram.ext import Application, CommandHandler, MessageHandler, filters, CallbackQueryHandler
+from bot.logger.log import setup_logging
+from telegram.ext import (
+    Application,
+    CommandHandler,
+    MessageHandler,
+    filters,
+    CallbackQueryHandler,
+)
 from bot.config import TELEGRAM_TOKEN
 from bot.handlers.command_handlers import start
 from bot.handlers.message_handlers import handle_credentials
 from bot.handlers.message_handlers import button_handler, handle_credentials
 
-logging.basicConfig(
-    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
-)
+setup_logging()
+
+
 logger = logging.getLogger(__name__)
 
 
