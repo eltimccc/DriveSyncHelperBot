@@ -27,22 +27,22 @@ def get_bookings_today(token: str) -> str:
 
         if pick_ups:
             bookings_info += (
-                "Заборы:\n"
+                "Выдачи:\n"
                 + "\n".join(
                     [
-                        f"- Машина: {b['car_brand']} {b['car_number']}\n, Статус: {b['status']}, Начало: {b['start_date']}, Конец: {b['end_date']}"
+                        f"- Машина: {b['car_brand']} {b['car_number']};\n Статус: {b['status']};\n Начало: {b['start_date']},\n Конец: {b['end_date']}."
                         for b in pick_ups
                     ]
                 )
-                + "\n\n"
+                + "\n\n⎯⎯⎯\n\n"
             )
         else:
-            bookings_info += "Нет заборов.\n\n"
+            bookings_info += "Нет выдач.\n\n"
 
         if drop_offs:
             bookings_info += "Возвраты:\n" + "\n".join(
                 [
-                    f"- Машина: {b['car_brand']} {b['car_number']}\n, Статус: {b['status']}, Начало: {b['start_date']}, Конец: {b['end_date']}"
+                    f"- Машина: {b['car_brand']} {b['car_number']};\n Статус: {b['status']};\n Начало: {b['start_date']},\n Конец: {b['end_date']}."
                     for b in drop_offs
                 ]
             )
