@@ -14,9 +14,17 @@ def login_to_flask(username: str, password: str) -> str:
         raise ValueError(f"Ошибка авторизации: {response.status_code} {response.text}")
 
 
-def get_bookings_today(token: str) -> str:
+def get_bookings(token: str, selected_date: str = None) -> str:
     headers = {"Authorization": f"Bearer {token}"}
-    response = requests.get(FLASK_BOOKING_TODAY_URL, headers=headers)
+
+    if selected_date:
+        response = requests.post(
+            FLASK_BOOKING_TODAY_URL,
+            json={"selected_date": selected_date},
+            headers=headers,
+        )
+    else:
+        response = requests.get(FLASK_BOOKING_TODAY_URL, headers=headers)
 
     if response.status_code == 200:
         data = response.json()
@@ -30,7 +38,7 @@ def get_bookings_today(token: str) -> str:
                 "Выдачи:\n"
                 + "\n".join(
                     [
-                        f"- Машина: {b['car_brand']} {b['car_number']};\n Статус: {b['status']};\n Начало: {b['start_date']},\n Конец: {b['end_date']}."
+                        f"- Машина: {b.get('car_brand', 'Неизвестно')} {b.get('car_number', 'Неизвестно')};\n Статус: {b.get('status', 'Неизвестно')};\n Начало: {b.get('start_date', 'Неизвестно')},\n Конец: {b.get('end_date', 'Неизвестно')}."
                         for b in pick_ups
                     ]
                 )
@@ -42,7 +50,7 @@ def get_bookings_today(token: str) -> str:
         if drop_offs:
             bookings_info += "Возвраты:\n" + "\n".join(
                 [
-                    f"- Машина: {b['car_brand']} {b['car_number']};\n Статус: {b['status']};\n Начало: {b['start_date']},\n Конец: {b['end_date']}."
+                    f"- Машина: {b.get('car_brand', 'Неизвестно')} {b.get('car_number', 'Неизвестно')};\n Статус: {b.get('status', 'Неизвестно')};\n Начало: {b.get('start_date', 'Неизвестно')},\n Конец: {b.get('end_date', 'Неизвестно')}."
                     for b in drop_offs
                 ]
             )
@@ -57,7 +65,7 @@ def get_bookings_today(token: str) -> str:
 def login_with_telegram_id(telegram_id: str) -> str:
     try:
         response = requests.post(FLASK_LOGIN_URL, json={"telegram_id": telegram_id})
-        response.raise_for_status()  # Поднимет исключение для 4xx и 5xx кодов
+        response.raise_for_status()
 
         if response.status_code == 200:
             data = response.json()
