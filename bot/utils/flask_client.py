@@ -38,7 +38,7 @@ def get_bookings(token: str, selected_date: str = None) -> str:
                 "Выдачи:\n"
                 + "\n".join(
                     [
-                        f"- Машина: {b.get('car_brand', 'Неизвестно')} {b.get('car_number', 'Неизвестно')};\n Статус: {b.get('status', 'Неизвестно')};\n Начало: {b.get('start_date', 'Неизвестно')},\n Конец: {b.get('end_date', 'Неизвестно')}."
+                        f"✅ Машина: {b.get('car_brand', 'Неизвестно')} {b.get('car_number', 'Неизвестно')};\n Статус: {b.get('status', 'Неизвестно')};\n Начало: {b.get('start_date', 'Неизвестно')},\n Конец: {b.get('end_date', 'Неизвестно')}."
                         for b in pick_ups
                     ]
                 )
@@ -50,7 +50,7 @@ def get_bookings(token: str, selected_date: str = None) -> str:
         if drop_offs:
             bookings_info += "Возвраты:\n" + "\n".join(
                 [
-                    f"- Машина: {b.get('car_brand', 'Неизвестно')} {b.get('car_number', 'Неизвестно')};\n Статус: {b.get('status', 'Неизвестно')};\n Начало: {b.get('start_date', 'Неизвестно')},\n Конец: {b.get('end_date', 'Неизвестно')}."
+                    f"❎ Машина: {b.get('car_brand', 'Неизвестно')} {b.get('car_number', 'Неизвестно')};\n Статус: {b.get('status', 'Неизвестно')};\n Начало: {b.get('start_date', 'Неизвестно')},\n Конец: {b.get('end_date', 'Неизвестно')}."
                     for b in drop_offs
                 ]
             )
